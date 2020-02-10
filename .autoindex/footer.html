@@ -233,3 +233,34 @@
 }(window));
 </script>
 <!-- autoindex for nginx -->
+
+<script src="https://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+    
+    /**
+    * 对list排序
+    * @param {boolean} flag     [正逆序标记]
+    * @param {JQ dom} $domlist     [参与排序的列表]
+    * @return {JQ dom}      [返回重新排序过的列表]
+    */
+	var sortDom = function(flag,$domlist){
+	    var $item = $domlist.find('li');
+	    var $newList = Array.prototype.sort.call($item,function(a,b){
+
+	        // return flag ? ($(a).find('a:first').html()-0) - ($(b).find('a:first').html()-0) : ($(b).find('a:first').html()-0) - ($(a).find('a:first').html()-0)
+	        var sort = $(a).find('a:first').html() > $(b).find('a:first').html() ? 1 : -1;
+	        return flag ? sort : -sort
+	    });
+	    return $newList;
+	}
+
+	var $domlist = $('.autoindex-list');
+	var $result = sortDom(false,$domlist);
+	var temp = $result[$result.length - 1];
+	for (var i = $result.length - 2; i >= 0; i--) {
+		$result[i+1] = $result[i]
+	}
+	$result[0] = temp;
+	$('.autoindex-list').html($result);
+
+</script>
